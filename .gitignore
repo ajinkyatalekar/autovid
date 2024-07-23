@@ -1,5 +1,6 @@
 # development files
 /main.py
+/.vscode
 
 # virtual env
 /venv
