@@ -1,1 +1,8 @@
+# development files
 /main.py
+
+# virtual env
+/venv
+
+# cache
+__pycache__/
