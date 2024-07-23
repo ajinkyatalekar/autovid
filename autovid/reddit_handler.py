@@ -4,7 +4,6 @@ from . import api_keys
 from . import exceptions
 
 class RedditEngine:
-
     def __init__(self):
         self.reddit = praw.Reddit(
             client_id=api_keys.client_id,
@@ -18,10 +17,8 @@ class RedditEngine:
         except:
             raise Exception(exceptions.INVALID_CREDENTIALS)
 
-    def fetch(self,url):
+    def fetch_post(self,url:str) -> None:
         try:
             submission = self.reddit.submission(url=url)
         except:
             raise Exception(exceptions.INVALID_URL)
-        
-        print(submission.title)
