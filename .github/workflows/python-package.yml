@@ -17,6 +17,10 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
+    
+    env:
+      REDDIT_CLIENT_ID: ${{secrets.REDDIT_CLIENT_ID}}
+      REDDIT_CLIENT_SECRET: ${{secrets.REDDIT_CLIENT_SECRET}}
 
     steps:
     - uses: actions/checkout@v4
@@ -37,6 +41,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        echo "SECRET_KEY: ${{secrets.REDDIT_CLIENT_ID}}"
-        echo "API_KEY: ${{secrets.REDDIT_CLIENT_SECRET}}"
         pytest
