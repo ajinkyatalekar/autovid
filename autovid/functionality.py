@@ -44,17 +44,21 @@ def makevideo(queue:list, background_video_path="", background_audio_path=""):
             )
 
         videoclip = videoclip.set_audio(audioclip)
+        videoclip = videoclip.set_opacity(0.95)
+
         videoclips.append(videoclip)
     
         num += 1
     
     videoclip = mp.concatenate_videoclips(videoclips)
-    videoclip = videoclip.set_pos(("center","center"))
 
     if not background_video_path:
         background = mp.ColorClip(size=(1280,720), color=[0,0,0], duration=videoclip.duration)
     else:
         background = mp.VideoFileClip(background_video_path)
+        background = background.subclip(0,videoclip.duration)
+
+    videoclip = videoclip.set_pos(("center","center"))
 
     videoclip = mp.CompositeVideoClip([background, videoclip])
 
