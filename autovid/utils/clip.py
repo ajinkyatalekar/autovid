@@ -20,6 +20,8 @@ class Clip:
         if self._audio_engine == 'gtts':
             aud = gTTS(text=self._audio_str, lang='en', slow=False, tld='ca')
             aud.save(path)
+        if self._audio_engine == 'tiktok':
+            pass
         else:
             raise Exception('invalid audio engine')
 

@@ -1,7 +1,10 @@
+import os
+import moviepy.editor as mp
+
 from autovid.utils import reddit_handler
 from autovid.utils.clip import Clip
 
-__all__ = ['redditpostclip','redditcommentclip']
+__all__ = ['redditpostclip','redditcommentclip','makevideo']
 
 def redditpostclip(url):
     submission = reddit_handler._fetch_post(url)
@@ -19,3 +22,47 @@ def redditcommentclip(url):
 
 def textclip(text):
     return Clip(text)
+
+def makevideo(queue:list, background_video_path="", background_audio_path=""):
+    path = 'temp/'
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    videoclips = []
+    num = 1
+    for clip in queue:
+        image_path = path + f'img_{num}.png'
+        audio_path = path + f'audio_{num}.mp3'
+
+        clip._gen_audio(audio_path)
+        clip._gen_img(image_path)
+        
+        audioclip = mp.AudioFileClip(audio_path)
+        videoclip = (mp.ImageClip(image_path)
+                .set_duration(audioclip.duration)
+                .set_pos(("center","center"))
+            )
+
+        videoclip = videoclip.set_audio(audioclip)
+        videoclips.append(videoclip)
+    
+        num += 1
+    
+    videoclip = mp.concatenate_videoclips(videoclips)
+    videoclip = videoclip.set_pos(("center","center"))
+
+    if not background_video_path:
+        background = mp.ColorClip(size=(1280,720), color=[0,0,0], duration=videoclip.duration)
+    else:
+        background = mp.VideoFileClip(background_video_path)
+
+    videoclip = mp.CompositeVideoClip([background, videoclip])
+
+    if background_audio_path:
+        background_audio = mp.AudioFileClip(background_audio_path)
+        background_audio =  background_audio.volumex(0.25)
+        background_audio = background_audio.set_duration(videoclip.duration)
+
+        videoclip = videoclip.set_audio(mp.CompositeAudioClip([videoclip.audio, background_audio]))
+
+    videoclip.write_videofile('temp/final.mp4', fps=24)
