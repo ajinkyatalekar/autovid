@@ -1,1 +1,1 @@
-from .reddit_handler import *
+from .functionality import *
