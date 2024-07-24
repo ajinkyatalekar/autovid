@@ -3,7 +3,7 @@ import praw
 from autovid import api_keys
 from autovid import exceptions
 
-__all__ = ['_postclip', '_commentclip']
+__all__ = ['_fetch_post', '_fetch_comment']
 
 def __getcredentials():
     return praw.Reddit(
