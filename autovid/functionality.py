@@ -1,3 +1,7 @@
+'''
+This module contains the main functionality of the autovid package
+'''
+
 import os
 import moviepy.editor as mp
 
@@ -7,6 +11,10 @@ from autovid.utils.clip import Clip
 __all__ = ['redditpostclip','redditcommentclip','makevideo']
 
 def redditpostclip(url):
+    ''' 
+    Fetches reddit post from url and converts it to an autovid Clip
+    '''
+    
     submission = reddit_handler._fetch_post(url)
     audio_str = submission.title + submission.selftext
     clip = Clip(audio_str)
@@ -14,6 +22,10 @@ def redditpostclip(url):
     return clip
 
 def redditcommentclip(url):
+    ''' 
+    Fetches reddit comment from url and converts it to an autovid Clip
+    '''
+
     submission = reddit_handler._fetch_comment(url)
     audio_str = submission.body
     clip = Clip(audio_str)
@@ -21,9 +33,17 @@ def redditcommentclip(url):
     return clip
 
 def textclip(text):
+    ''' 
+    Converts basic text into autovid Clip
+    '''
+
     return Clip(text)
 
 def makevideo(queue:list, background_video_path="", background_audio_path=""):
+    '''
+    Generates final rendered video from autovid Clips
+    '''
+
     path = 'temp/'
     if not os.path.exists(path):
         os.makedirs(path)
