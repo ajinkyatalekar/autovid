@@ -1,3 +1,3 @@
 # reddit api
-client_id = ""
+client_id = "id"
 client_secret = ""

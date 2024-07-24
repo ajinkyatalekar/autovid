@@ -27,8 +27,8 @@ class Clip:
 
     def _gen_img(self,path):
         if not self._selenium_wrapper:
-            if not img_src:
-                raise Exception("image not found at " + img_src)
+            if not self.img_src:
+                raise Exception("image not found at " + self.img_src)
             shutil.copy(self._img_src,path)
 
         driver = webdriver.Chrome()
