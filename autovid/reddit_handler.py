@@ -17,8 +17,16 @@ class RedditEngine:
         except:
             raise Exception(exceptions.INVALID_CREDENTIALS)
 
-    def fetch_post(self,url:str) -> None:
+    def postclip(self,url:str):
         try:
             submission = self.reddit.submission(url=url)
+            return submission
+        except:
+            raise Exception(exceptions.INVALID_URL)
+
+    def commentclip(self,url:str):
+        try:
+            comment = self.reddit.comment(url=url)
+            return comment
         except:
             raise Exception(exceptions.INVALID_URL)
