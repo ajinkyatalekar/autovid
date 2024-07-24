@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/ff08d7fc-5804-4ec7-930b-4a55bc38a834
    ```
 
 ### Usage
-- First, import autovid and update the Reddit API key and secret to let autovid access Reddit.
+- Import autovid and update the Reddit API key and secret to let autovid access Reddit.
   ```py
    import autovid as av
    
