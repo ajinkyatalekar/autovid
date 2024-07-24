@@ -16,6 +16,6 @@ def test_valid_post_url():
     except Exception:
         pytest.fail("Unexcepted exception thrown")
 
-# def test_invalid_post_url():
-#     with pytest.raises(Exception):
-#         clip = av.redditpostclip("https://www.invalid_url.com")
+def test_invalid_post_url():
+    with pytest.raises(Exception):
+        clip = av.redditpostclip("https://www.invalid_url.com")
