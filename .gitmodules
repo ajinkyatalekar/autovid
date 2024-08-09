@@ -1,0 +1,3 @@
+[submodule "autovid_site"]
+	path = autovid_site
+	url = https://github.com/ajinkyatalekar/autovid_site.git
